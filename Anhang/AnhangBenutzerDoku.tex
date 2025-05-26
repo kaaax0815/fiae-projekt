@@ -1,15 +1,46 @@
 \subsection{Benutzerdokumentation}
 \label{app:BenutzerDoku}
-Ausschnitt aus der Benutzerdokumentation:
+Auszug aus der Benutzerdokumentation:
 
-\begin{table}[htb]
-\begin{tabularx}{\textwidth}{cXX}
-\rowcolor{heading}\textbf{Symbol} & \textbf{Bedeutung global} & \textbf{Bedeutung einzeln} \\
-\includegraphicstotab[]{weather-clear.png} & Alle Module weisen den gleichen Stand auf. & Das Modul ist auf dem gleichen Stand wie das Modul auf der vorherigen Umgebung. \\
-\rowcolor{odd}\includegraphicstotab[]{weather-clear-night.png} & Es existieren keine Module (fachlich nicht möglich). & Weder auf der aktuellen noch auf der vorherigen Umgebung sind Module angelegt. Es kann also auch nichts übertragen werden. \\
-\includegraphicstotab[]{weather-few-clouds-night.png} & Ein Modul muss durch das Übertragen von der vorherigen Umgebung erstellt werden. & Das Modul der vorherigen Umgebung kann übertragen werden, auf dieser Umgebung ist noch kein Modul vorhanden. \\
-\rowcolor{odd}\includegraphicstotab[]{weather-few-clouds.png} & Auf einer vorherigen Umgebung gibt es ein Modul, welches übertragen werden kann, um das nächste zu aktualisieren. & Das Modul der vorherigen Umgebung kann übertragen werden um dieses zu aktualisieren. \\
-\includegraphicstotab[]{weather-storm.png} & Ein Modul auf einer Umgebung wurde entgegen des Entwicklungsprozesses gespeichert. & Das aktuelle Modul ist neuer als das Modul auf der vorherigen Umgebung oder die vorherige Umgebung wurde übersprungen. \\
-\end{tabularx}
-\end{table}
+\begin{minipage}{0.5\textwidth}
+\includegraphicsKeepAspectRatio{UebersichtDoku.png}{0.95}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    (1) zeigt den Namen des Sensors.Das davorstehende Icon zeigt die Art des Sensortyps. In diesem Fall ein Luftdrucksensor.
 
+    (2) zeigt den aktuellsten Zählerstand
+
+    (3) zeigt den aktuellsten Batteriestand
+
+    (4) zeigt wann die letzten Daten geschickt wurden
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+    (1) Sie können hier klicken um die Historie anzuzeigen
+
+    (2) zeigt den aktuellsten Batteriestand in Prozent
+
+    (3) Sie können den Knopf drücken um den Sensor als Favoriten zu markieren
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    \hfill
+    \includegraphicsKeepAspectRatio{DetailDoku.png}{0.95}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+\includegraphicsKeepAspectRatio{HistorieDoku.png}{0.95}
+\end{minipage}
+\hfill
+\begin{minipage}{0.5\textwidth}
+    (1) Sie können die Genauigkeit der Daten auswählen
+
+    (2) zeigt den Wert des Vorzeitraums (Montag der letzten Woche)
+
+    (3) zeigt einen Wert des aktuellen Zeitraums (Montag der aktuellen Woche)
+
+    (4) zeigt den Wert des kompletten Zeitraums (komplette aktuelle Woche)
+
+    (5) zeigt den Wert des kompletten Vorzeitraums (komplette letzte Woche)
+\end{minipage}

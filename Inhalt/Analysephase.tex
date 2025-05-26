@@ -5,97 +5,105 @@
 
 \subsection{Ist-Analyse} 
 \label{sec:IstAnalyse}
-\begin{itemize}
-	\item Wie ist die bisherige Situation (\zB bestehende Programme, Wünsche der Mitarbeiter)?
-	\item Was gilt es zu erstellen/verbessern?
-\end{itemize}
+	Die Firma \OFF verfolgt das Ziel, eine ganzheitliche \ac{IoT}-Plattform zu entwickeln.
+	Im Rahmen dieser Ist-Analyse wird untersucht, in welchem Umfang bereits bestehende Systemkomponenten verfügbar sind
+	und wo noch Entwicklungsbedarf besteht.
+
+	Aktuell bietet \OFF ein bestehendes Produkt über eine modulare App an.
+	Diese App ist so konzipiert, dass sie flexibel um neue Funktionen erweitert werden kann,
+	ohne dass eine vollständige Neuentwicklung erforderlich ist.
+	Dies bildet eine solide Grundlage für die geplante Erweiterung zur IoT-Plattform.
+
+	Ein zentrales Element, das derzeit noch fehlt, ist jedoch ein System zur Erfassung und Verarbeitung von Sensordaten.
+	Dieses bildet eine essenzielle Voraussetzung für die Realisierung der IoT-Funktionalitäten
+	und muss daher im weiteren Projektverlauf neu entwickelt werden.
 
 
 \subsection{Wirtschaftlichkeitsanalyse}
 \label{sec:Wirtschaftlichkeitsanalyse}
-\begin{itemize}
-	\item Lohnt sich das Projekt für das Unternehmen?
-\end{itemize}
 
 
-\subsubsection{\gqq{Make or Buy}-Entscheidung}
-\label{sec:MakeOrBuyEntscheidung}
-\begin{itemize}
-	\item Gibt es vielleicht schon ein fertiges Produkt, dass alle Anforderungen des Projekts abdeckt?
-	\item Wenn ja, wieso wird das Projekt trotzdem umgesetzt?
-\end{itemize}
+	\subsubsection{\gqq{Make or Buy}-Entscheidung}
+	\label{sec:MakeOrBuyEntscheidung}
+		Die geplante IoT-Plattform soll zentrale Funktionen für die Datenerfassung und -verarbeitung übernehmen,
+		insbesondere im Zusammenhang mit Sensordaten, die für zukünftige digitale Dienstleistungen eine strategische Rolle spielen.
+		Diese Daten bilden eine wesentliche Grundlage für produktbezogene Auswertungen, Prozessautomatisierung und potenzielle Erlösmodelle.
+
+		Zudem ist eine enge Integration mit der bereits bestehenden modularen App notwendig,
+		die unternehmensspezifisch entwickelt wurde. Die App-Architektur erfordert eine hohe Kompatibilität mit bestehenden Schnittstellen
+		sowie eine flexible Erweiterbarkeit, um zukünftige Funktionalitäten effizient einbinden zu können.
+		Eine externe Lösung würde potenzielle Risiken im Hinblick auf Datenschutz,
+		Anpassungsfähigkeit und Abhängigkeit von Drittanbietern mit sich bringen.
+
+		Vor diesem Hintergrund wurde entschieden,
+		die erforderlichen Systemkomponenten zur Sensordatenerfassung und -verarbeitung unternehmensintern zu entwickeln.
+		Die Eigenentwicklung ermöglicht maximale Kontrolle über sensible Daten,
+		volle technische Integration in bestehende Systeme sowie eine langfristig strategische Unabhängigkeit.
 
 
-\subsubsection{Projektkosten}
-\label{sec:Projektkosten}
-\begin{itemize}
-	\item Welche Kosten fallen bei der Umsetzung des Projekts im Detail an (\zB Entwicklung, Einführung/Schulung, Wartung)?
-\end{itemize}
+	\subsubsection{Projektkosten}
+	\label{sec:Projektkosten}
+		Im Folgenden werden die voraussichtlichen Kosten des Projekts kalkuliert.
+		Dabei sind sowohl die Personalkosten für den zuständigen Entwickler sowie weitere projektbeteiligte Mitarbeitende zu berücksichtigen,
+		als auch die Aufwendungen für die unter \Verweis{sec:Ressourcenplanung} aufgeführten Sachmittel und technischen Ressourcen.
+		Alle relevanten Kostenpositionen fließen in die Gesamtkalkulation ein,
+		um eine realistische Einschätzung des finanziellen Projektaufwands zu ermöglichen.
+		
+		Die exakten Personalkosten können aus datenschutzrechtlichen Gründen nicht offengelegt werden.
+		Daher erfolgt die Kalkulation auf Basis realitätsnaher Durchschnittswerte.
+		Für einen voll ausgebildeten Mitarbeitenden werden die Gesamtkosten für das Unternehmen mit \eur{60,00} pro Stunde angesetzt.
+		Die Kosten für einen Auszubildenden werden auf Grundlage branchenüblicher Vergütungen
+		und betrieblicher Aufwendungen mit \eur{12,00} pro Stunde kalkuliert.
+		Zusätzlich wird für die Nutzung von Hard- und Software ein pauschaler Stundensatz von \eur{15,00} berücksichtigt.
+		
+		Für das Projekt ist ein Gesamtaufwand von 80 Arbeitsstunden eingeplant.
+		Auf dieser Grundlage lassen sich die voraussichtlichen Gesamtkosten näherungsweise ermitteln.
 
-\paragraph{Beispielrechnung (verkürzt)}
-Die Kosten für die Durchführung des Projekts setzen sich sowohl aus Personal-, als auch aus Ressourcenkosten zusammen.
-In Absprache mit der Personalabteilung wird für einen Auszubildenden im dritten Lehrjahr ein Stundensatz von \eur{7,56} und für die anderen Mitarbeiter ein Stundensatz von \eur{25} angesetzt.
-Für die Nutzung von Ressourcen\footnote{Räumlichkeiten, Arbeitsplatzrechner etc.} wird ein Stundensatz von \eur{15} angenommen.
-Die Durchführungszeit des Projekts beträgt 70 Stunden.
-Eine Aufstellung der Kosten befindet sich in Tabelle~\ref{tab:Kostenaufstellung} und sie betragen insgesamt \eur{2739,20}.
-\tabelle{Kostenaufstellung}{tab:Kostenaufstellung}{Kostenaufstellung.tex}
-
-
-\subsubsection{Amortisationsdauer}
-\label{sec:Amortisationsdauer}
-\begin{itemize}
-	\item Welche monetären Vorteile bietet das Projekt (\zB Einsparung von Lizenzkosten, Arbeitszeitersparnis, bessere Usability, Korrektheit)?
-	\item Wann hat sich das Projekt amortisiert?
-\end{itemize}
-
-\paragraph{Beispielrechnung (verkürzt)}
-Bei einer Zeiteinsparung von 10 Minuten am Tag für jeden der 25 Anwender und 220 Arbeitstagen im Jahr ergibt sich eine gesamte Zeiteinsparung von 
-\begin{eqnarray}
-25 \cdot 220 \mbox{ Tage/Jahr} \cdot 10 \mbox{ min/Tag} = 55000 \mbox{ min/Jahr} \approx 917 \mbox{ h/Jahr} 
-\end{eqnarray}
-
-Dadurch ergibt sich eine jährliche Einsparung von 
-\begin{eqnarray}
-917 \mbox{h} \cdot \eur{(25 + 15)}{\mbox{/h}} = \eur{36680}
-\end{eqnarray}
-
-Die Amortisationszeit beträgt also $\frac{\eur{2739,20}}{\eur{36680}\mbox{/Jahr}} \approx 0,07 \mbox{ Jahre} \approx 4 \mbox{ Wochen}$.
+		Eine Aufstellung der Kosten befindet sich in Tabelle~\ref{tab:Kostenaufstellung} und sie betragen insgesamt \eur{2739,20}.
+		\tabelle{Kostenaufstellung}{tab:Kostenaufstellung}{Kostenaufstellung.tex}
 
 
-\subsection{Nutzwertanalyse}
-\label{sec:Nutzwertanalyse}
-\begin{itemize}
-	\item Darstellung des nicht-monetären Nutzens (\zB Vorher-/Nachher-Vergleich anhand eines Wirtschaftlichkeitskoeffizienten). 
-\end{itemize}
+	\subsubsection{Amortisationsdauer}
+	\label{sec:Amortisationsdauer}
+		Da es sich bei der \ac{IoT}-Plattform um ein neu entwickeltes Produkt handelt,
+		kann die Amortisationsdauer nicht auf Basis von Einsparungen durch die Ablösung eines bestehenden Systems berechnet werden.
+		Stattdessen orientiert sich die Kalkulation an den erwarteten Einnahmen aus dem geplanten monatlichen Abomodell.
 
-\paragraph{Beispiel}
-Ein Beispiel für eine Entscheidungsmatrix findet sich in Kapitel~\ref{sec:Architekturdesign}: \nameref{sec:Architekturdesign}.
+		Die einmaligen Projektkosten belaufen sich auf insgesamt \eur{2.320}.
+		Hinzu kommen laufende Betriebskosten von \eur{15} pro Monat (\eur{10} für Serverbetrieb und \eur{5} für Datensicherung)
+		Diese Kosten fallen pauschal für das Gesamtsystem an – unabhängig von der Anzahl der Nutzer.
+
+		Bei einem monatlichen Verkaufspreis von \eur{20} pro Kunde ergeben sich folgende Szenarien:
+
+		\begin{itemize}
+		\item Bei 1 Kunde: Deckungsbeitrag = \eur{20} - \eur{15} = \eur{5} pro Monat
+		\item Bei 5 Kunden: Deckungsbeitrag = $5 \times \eur{20} - \eur{15} = \eur{85}$ pro Monat
+		\item Bei 10 Kunden: Deckungsbeitrag = $10 \times \eur{20} - \eur{15} = \eur{185}$ pro Monat
+		\end{itemize}
+
+		Die Amortisationsdauer bei 10 Kunden berechnet sich wie folgt:
+
+		\begin{eqnarray}
+		\frac{\eur{2.320}}{\eur{185}} \approx 12,54 \ \mbox{Monate}
+		\end{eqnarray}
+
+		Somit wäre die Investition bei zehn gleichzeitig zahlenden Kunden bereits nach etwas über einem Jahr vollständig amortisiert.
+		Mit wachsender Kundenzahl verkürzt sich die Amortisationsdauer entsprechend weiter.
+
+		Die Analyse zeigt, dass das Projekt bei realistischer Kundengewinnung wirtschaftlich ist.
+		Die Investitionskosten können innerhalb eines angemessenen Zeitraums amortisiert werden,
+		weshalb die Umsetzung aus wirtschaftlicher Sicht empfohlen wird.
 
 
 \subsection{Anwendungsfälle}
 \label{sec:Anwendungsfaelle}
-\begin{itemize}
-	\item Welche Anwendungsfälle soll das Projekt abdecken?
-	\item Einer oder mehrere interessante (!) Anwendungsfälle könnten exemplarisch durch ein Aktivitätsdiagramm oder eine \ac{EPK} detailliert beschrieben werden. 
-\end{itemize}
-
-\paragraph{Beispiel}
-Ein Beispiel für ein Use Case-Diagramm findet sich im \Anhang{app:UseCase}.
+	Um einen ersten Überblick darüber zu gewinnen, wie Kunden und Mitarbeitende mit der Anwendung interagieren sollen
+	und welche Anwendungsfälle aus Sicht der Endnutzer abgedeckt werden müssen, wurde im Rahmen der Analysephase ein Use-Case-Diagramm erstellt.
+	Dieses ist im \Anhang{app:UseCase} dargestellt.
 
 
-\subsection{Qualitätsanforderungen}
-\label{sec:Qualitaetsanforderungen}
-\begin{itemize}
-	\item Welche Qualitätsanforderungen werden an die Anwendung gestellt (\zB hinsichtlich Performance, Usability, Effizienz \etc (siehe \citet{ISO9126}))?
-\end{itemize}
-
-
-\subsection{Lastenheft/Fachkonzept}
+\subsection{Lastenheft}
 \label{sec:Lastenheft}
-\begin{itemize}
-	\item Auszüge aus dem Lastenheft/Fachkonzept, wenn es im Rahmen des Projekts erstellt wurde.
-	\item Mögliche Inhalte: Funktionen des Programms (Muss/Soll/Wunsch), User Stories, Benutzerrollen
-\end{itemize}
-
-\paragraph{Beispiel}
-Ein Beispiel für ein Lastenheft findet sich im \Anhang{app:Lastenheft}. 
+	Zum Abschluss der Analysephase wurde gemeinsam mit dem Kunden ein Lastenheft erstellt.
+	Darin sind sämtliche Anforderungen des Auftraggebers an die zu entwickelnde Anwendung festgehalten.
+	Ein Auszug daraus befindet sich im \Anhang{app:Lastenheft}.

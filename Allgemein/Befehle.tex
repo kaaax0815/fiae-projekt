@@ -26,6 +26,7 @@
 \newcommand{\Zitat}[2][\empty]{\ifthenelse{\equal{#1}{\empty}}{\citep{#2}}{\citep[#1]{#2}}}
 \newcommand{\Autor}[1]{\textsc{#1}} % zum Ausgeben von Autoren
 \newcommand{\itemd}[2]{\item{\textbf{#1}}\\{#2}} % erzeugt ein Listenelement mit fetter Überschrift
+\newcommand{\Verweis}[1]{\ref{#1} (\nameref{#1})}
 
 % fügt Tabellen aus einer TEX-Datei ein
 \newcommand{\tabelle}[3] % Parameter: caption, label, file
@@ -58,7 +59,7 @@
 \includegraphics[{#1}]{#2}}%
 }
 
-\definecolor{AOBlau}{rgb}{0, 0.28, 0.56}
+\definecolor{LinkColor}{rgb}{0, 0.28, 0.56}
 
 % verschiedene Befehle um Wörter semantisch auszuzeichnen ----------------------
 \newcommand{\Index}[2][\empty]{\ifthenelse{\equal{#1}{\empty}}{\index{#2}#2}{\index{#1}#2}}
@@ -83,3 +84,5 @@
 \newcommand{\CodeSmell}[1]{\Fachbegriff{#1}}
 \newcommand{\Metrik}[1]{\Fachbegriff{#1}}
 \newcommand{\DesignPattern}[1]{\Fachbegriff{#1}}
+
+\newenvironment{longlisting}{\captionsetup{type=listing}}{}

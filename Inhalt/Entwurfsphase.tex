@@ -4,88 +4,217 @@
 
 \subsection{Zielplattform}
 \label{sec:Zielplattform}
+	Wie bereits unter \Verweis{sec:Projektziel} erwähnt, sollen bestehende Systeme erweitert werden.
+	Dies macht die Entwicklung einfacher, da bestehende Funktionalitäten aufgegriffen werden können.
+	Daten aus dem System liegen in einer MySQL Datenbank. Auf ein neues Datenbanksystem kann daher verzichtet werden.
 
-\begin{itemize}
-	\item Beschreibung der Kriterien zur Auswahl der Zielplattform (\ua Programmiersprache, Datenbank, Client/Server, Hardware).
-\end{itemize}
+	Als Programmiersprache im Backend wird \ac{PHP} verwendet, da das bestehende System dies vorgibt.
+	Die App verwendet NativeScript-Vue somit wird die App in JavaScript und Vue.js programmiert.
 
 
 \subsection{Architekturdesign}
 \label{sec:Architekturdesign}
-\begin{itemize}
-	\item Beschreibung und Begründung der gewählten Anwendungsarchitektur (\zB \acs{MVC}).
-	\item \Ggfs Bewertung und Auswahl von verwendeten Frameworks sowie \ggfs eine kurze Einführung in die Funktionsweise des verwendeten Frameworks.
-\end{itemize}
+	Im Backend der Anwendung kommt das \ac{PHP}-Framework Laravel zum Einsatz, welches auf dem \ac{MVC}-Architekturmuster basiert.
+	Diese bewährte Architektur wird durch eine zusätzliche Komponentenstruktur erweitert, um eine modulare und wartbare Codebasis zu ermöglichen.
 
-\paragraph{Beispiel}
-Anhand der Entscheidungsmatrix in Tabelle~\ref{tab:Entscheidungsmatrix} wurde für die Implementierung der Anwendung das \acs{PHP}-Framework Symfony\footnote{\Vgl \citet{Symfony}.} ausgewählt. 
+	Die Anwendung gliedert sich grundsätzlich in drei zentrale Schichten:
 
-\tabelle{Entscheidungsmatrix}{tab:Entscheidungsmatrix}{Nutzwert.tex}
+	Die Model-Schicht bildet sowohl die zugrunde liegenden Datenstrukturen als auch die fachliche Logik der Anwendung ab.
+	Dabei wird Eloquent verwendet, ein Active Record \ac{ORM} von Laravel. Das bedeutet, dass die Datenbankoperationen
+	direkt im jeweiligen Model definiert und ausgeführt werden, anstatt ein separates Repository-Pattern zu verwenden.
+	So sind Funktionen wie das Abrufen, Speichern oder Löschen von Datensätzen eng mit den jeweiligen Datenmodellen verknüpft.
+
+	Die View-Schicht ist in einer klassischen Laravel-Anwendung für die Darstellung der Benutzeroberfläche verantwortlich.
+	In diesem Projekt wird jedoch eine moderne \ac{SPA} \bzw App auf Basis von Vue.js eingesetzt,
+	wodurch die klassische Laravel-View nur noch eine untergeordnete Rolle spielt.
+	Sie wird primär für die Darstellung von E-Mail-Templates oder anderen serverseitig generierten Inhalten verwendet.
+
+	Die Controller bilden die Vermittlung zwischen Benutzeranfragen und der Geschäftslogik.
+	Sie nehmen eingehende \ac{HTTP}-Anfragen entgegen, verarbeiten diese, interagieren mit den entsprechenden Models
+	und geben eine passende Antwort zurück. Darüber hinaus sind die Controller auch für die Validierung von Benutzereingaben zuständig, 
+	sowohl hinsichtlich formaler Korrektheit als auch, falls erforderlich, in Bezug auf deren inhaltliche Sinnhaftigkeit.
+
+	Durch diese klar strukturierte Trennung der Verantwortlichkeiten wird eine saubere, wartbare und erweiterbare Codebasis sichergestellt,
+	die sowohl die Entwicklung neuer Features als auch die Fehlerbehebung erleichtert.
+
+
+	Ein weiteres zentrales Element der Systemarchitektur ist der gRPC-Proxy, welcher als Vermittler zwischen dem \ac{REST}-basierten Backend
+	und dem gRPC-basierten ChirpStack-Server fungiert. Seine Hauptaufgabe besteht darin, eingehende \ac{REST}-Anfragen aus dem Backend
+	entgegenzunehmen und diese in äquivalente gRPC-Aufrufe zu übersetzen. Dabei handelt es sich um eine rein technische Übersetzungsschicht
+	ohne eigene Geschäftslogik. Aus diesem Grund wurde bewusst auf die Implementierung eines komplexen Software-Patterns verzichtet,
+	um die Komponente so einfach und wartungsarm wie möglich zu halten.
+
+	Für die Umsetzung des Proxys wird das Webframework h3 eingesetzt. h3 zeichnet sich durch seine hohe Performance, geringe Größe
+	sowie die hervorragende Unterstützung von TypeScript aus. Der Einsatz von TypeScript ermöglicht es, viele potenzielle
+	Fehler bereits beim Kompilieren zu identifizieren und damit die Stabilität und Wartbarkeit des Codes deutlich zu erhöhen.
+	Zur Validierung der eingehenden \ac{REST}-Anfragen wird die Bibliothek \Ausgabe{zod} verwendet. Dadurch kann sichergestellt werden,
+	dass fehlerhafte oder unvollständige Daten nicht an ChirpStack weitergeleitet werden.
+	Stattdessen erhält das Backend unmittelbar eine aussagekräftige Fehlermeldung,
+	was die Nutzerfreundlichkeit und Robustheit der Schnittstelle erhöht.
+
+	
+	Die letzte serverseitige Komponente ist ChirpStack, ein Open-Source Netzwerk- und Applikationsserver für LoRaWAN.
+	ChirpStack ermöglicht die Verwaltung von Sensoren und Gateways sowie die Organisation und Steuerung von LoRaWAN-Sitzungen.
+	Zusätzlich bietet die Plattform die Möglichkeit, benutzerdefinierte Decoder-Skripte zu hinterlegen. Diese werden genutzt,
+	um die von den Sensoren gesendeten Binärdaten automatisiert in strukturierte JSON-Objekte umzuwandeln.
+	Somit stellt ChirpStack eine zentrale und flexible Plattform für den zuverlässigen Betrieb
+	und die Integration von LoRaWAN-basierten IoT-Systemen dar.
+
+
+	Die App verwendet NativeScript-Vue, ein Framework, das Webentwicklern ermöglicht, native mobile Apps mit vertrauten Webtechnologien
+	wie JavaScript zu erstellen. Ein großer Vorteil von NativeScript ist, dass der Code einmal geschrieben und anschließend
+	sowohl für iOS als auch Android verwendet werden kann.
+
+	NativeScript-Vue kombiniert NativeScript mit dem JavaScript Webframework Vue.js. Vue.js basiert auf einem reaktiven Datenmodell
+	und dem Virtual DOM. Reaktivität bedeutet, dass sich die Benutzeroberfläche automatisch aktualisiert,
+	sobald sich die zugrunde liegenden Daten ändern. Der Virtual DOM optimiert diesen Prozess, indem er eine virtuelle Kopie
+	der Benutzeroberfläche erstellt und nur die tatsächlich veränderten Teile neu rendert. Dadurch werden Updates effizient und
+	ressourcenschonend durchgeführt.
+
+	Was NativeScript-Vue besonders macht, ist, dass es keine HTML-Webansicht auf dem Gerät anzeigt.
+	Stattdessen werden alle UI-Elemente tatsächlich nativ gerendert, was zu einer deutlich besseren Performance
+	und einem authentischen Look-and-Feel auf der jeweiligen Plattform führt.
 
 
 \subsection{Entwurf der Benutzeroberfläche}
-\label{sec:Benutzeroberflaeche} 
-\begin{itemize}
-	\item Entscheidung für die gewählte Benutzeroberfläche (\zB GUI, Webinterface).
-	\item Beschreibung des visuellen Entwurfs der konkreten Oberfläche (\zB Mockups, Menüführung).
-	\item \Ggfs Erläuterung von angewendeten Richtlinien zur Usability und Verweis auf Corporate Design.
-\end{itemize}
+\label{sec:Benutzeroberflaeche}
 
-\paragraph{Beispiel}
-Beispielentwürfe finden sich im \Anhang{app:Entwuerfe}.
+	Da das Nutzererlebnis bei mobilen Anwendungen von zentraler Bedeutung ist,
+	wurde frühzeitig ein besonderer Fokus auf die Gestaltung der Benutzeroberfläche gelegt.
+	Zu diesem Zweck wurden zunächst Mockups entwickelt, die anschließend in enger Abstimmung mit dem Kunden mehrfach überarbeitet
+	und verbessert wurden. Die finalen Entwürfe sind im \Anhang{app:Mockups} dokumentiert.
 
+	Da die Anwendung in eine bestehende App integriert wird, deren grundlegendes Layout bereits definiert ist,
+	mussten diese bei der Gestaltung der Benutzeroberfläche berücksichtigt werden.
+	Insbesondere sind der obere Seitenbereich (Header) sowie das Navigationsmenü fest vorgegeben.
+	Diese Strukturen bilden den äußeren Rahmen des App-Designs und wurden im Entwurf entsprechend berücksichtigt.
+
+	Die Startseite der Anwendung bietet eine Übersicht über alle vorhandenen Sensoren.
+	Jeder Sensor wird in einer eigenen Kachel dargestellt.
+	Gemäß der mit dem Kunden abgestimmten Gestaltung ist die Kachel weiß hinterlegt und hebt sich damit optisch von dem grauen Hintergrund ab.
+	Jede dieser Kacheln enthält folgende Informationen:
+
+	\begin{itemize}
+		\item den Namen des Sensors
+		\item die Art des Sensors visualisiert durch ein passendes Symbol
+		\item den aktuellen Messwert
+		\item den Batteriestand dargestellt durch ein Symbol
+		\item den Zeitpunkt der letzten Datenübertragung
+	\end{itemize}
+
+	Wählt der Nutzer einen Sensor aus, wird eine Detailansicht geöffnet.
+	Dort werden die oben genannten Informationen erneut angezeigt, wobei der Batteriestand deutlicher hervorgehoben wird.
+	Falls der Sensor zusätzliche Messwerte liefert, die nicht unmittelbar relevant, aber dennoch informativ sind,
+	werden diese in dieser Detailansicht ebenfalls dargestellt. Darüber hinaus können Nutzer einzelne Sensoren als Favoriten markieren.
+	Diese Favoriten erscheinen auf der Startseite ganz oben, um einen schnellen Zugriff zu ermöglichen.
+
+	Ein zentrales Element der Benutzeroberfläche ist die Darstellung historischer Sensordaten.
+	Diese erfolgt mithilfe eines Säulendiagramms, das in drei zeitliche Ansichten unterteilt ist: Tag, Woche und Jahr.
+
+	\begin{itemize}
+		\item In der Tagesansicht werden die Daten in zwei-Stunden-Intervallen gruppiert.
+		\item In der Wochenansicht erfolgt die Aggregation der Daten nach Wochentagen.
+		\item In der Jahresansicht wird der Verlauf über die Monate hinweg dargestellt.
+	\end{itemize}
+
+	Zur besseren Vergleichbarkeit wird in jeder dieser Ansichten zusätzlich der jeweilige Vorzeitraum eingeblendet.
+	Dadurch können Veränderungen im zeitlichen Verlauf unmittelbar erkannt und eingeordnet werden.
+
+	Insgesamt verfolgt der Entwurf der Benutzeroberfläche das Ziel, eine klare,
+	übersichtliche und nutzerfreundliche Darstellung aller relevanten Informationen sicherzustellen.
 
 \subsection{Datenmodell}
 \label{sec:Datenmodell}
+	Das Datenmodell der Anwendung umfasst die zentralen Entitäten \Klasse{Gateway}, \Klasse{Gerät}, \Klasse{Sensor}, \Klasse{Kategorie}, \Klasse{Wert},
+	\Klasse{Geräte-Profil}, \Klasse{Hersteller} sowie \Klasse{Sensortyp}. Diese bilden die Grundlage für die strukturierte Erfassung,
+	Zuordnung und Auswertung der erfassten Sensordaten.
 
-\begin{itemize}
-	\item Entwurf/Beschreibung der Datenstrukturen (\zB \acs{ERM} und/oder Tabellenmodell, \acs{XML}-Schemas) mit kurzer Beschreibung der wichtigsten (!) verwendeten Entitäten.
-\end{itemize}
+	Ein \Klasse{Gerät} stellt einen physischen Sensor bzw. ein Sensormodul dar,
+	das über eine eindeutige \Attribut{devEUI} identifiziert wird.
+	Es fungiert als logische Einheit, die mit einem oder mehreren \Klasse{Sensoren} ausgestattet ist
+	und regelmäßig Messwerte an das System übermittelt. Jedes \Klasse{Gerät} ist einem \Klasse{Geräte-Profil} zugeordnet,
+	das allgemeine Informationen wie unterstützte Sensortypen oder Kommunikationsverhalten enthält.
 
-\paragraph{Beispiel}
-In \Abbildung{ER} wird ein \ac{ERM} dargestellt, welches lediglich Entitäten, Relationen und die dazugehörigen Kardinalitäten enthält. 
+	Das \Klasse{Geräte-Profil} wiederum ist einem bestimmten \Klasse{Hersteller} zugeordnet,
+	welcher das Gerät entwickelt oder produziert hat. Durch diese Beziehung können gerätespezifische Merkmale,
+	Abhängigkeiten und Kompatibilitäten nachvollziehbar dokumentiert und verwaltet werden.
+	Ein \Klasse{Geräte-Profil} definiert eine Menge an unterstützten \Klasse{Sensortypen}.
+	Diese Typen geben an, welche Arten von Sensoren in einem Gerät dieses Profils verbaut sind.
+	Beim Anlegen eines neuen Geräts im System werden automatisch die zugehörigen \Klasse{Sensoren} entsprechend dem Geräte-Profil erstellt.
 
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{ERDiagramm.pdf}{0.6}
-\caption{Vereinfachtes ER-Modell}
-\label{fig:ER}
-\end{figure} 
+	Jeder \Klasse{Sensor} steht für eine konkrete Messeinheit innerhalb eines Geräts.
+	Ein \Klasse{Gerät} kann mehrere Sensoren enthalten, da in modernen Umweltsensoren meist mehrere Messgrößen parallel erfasst werden.
+	Typische Beispiele sind Temperatur, Luftfeuchtigkeit, Helligkeit und CO\textsubscript{2}-Konzentration.
+	Ein \Klasse{Sensor} kann mehreren \Klasse{Kategorien} zugeordnet sein, welche thematische oder funktionale Gruppierungen darstellen.
+	Kategorien dienen unter anderem der Strukturierung und Aggregation von Sensordaten.
+	Ein \Klasse{Sensor} speichert kontinuierlich \Klasse{Werte}, die jeweils einen gemessenen Messwert sowie den zugehörigen Zeitstempel enthalten.
+	Zusätzlich werden \Klasse{Durchschnittswerte} berechnet und gespeichert
+	um aggregierte Informationen über bestimmte Zeitintervalle hinweg (\zB stündlich, täglich) effizient verfügbar zu machen.
+	Diese Durchschnittswerte ermöglichen eine performante Visualisierung historischer Verläufe ohne aufwendig alle Einzelwerte laden zu müssen.
+	
+	Diese Beziehungen sind im \Anhang{app:ERM} als \ac{ERM} dargestellt.
 
 
 \subsection{Geschäftslogik}
 \label{sec:Geschaeftslogik}
+	Vor Beginn der Implementierung wurde ein Komponentendiagramm erstellt, um das Zusammenspiel der verschiedenen Systembestandteile
+	übersichtlich darzustellen und die zugrunde liegende Architektur zu visualisieren.
 
-\begin{itemize}
-	\item Modellierung und Beschreibung der wichtigsten (!) Bereiche der Geschäftslogik (\zB mit Kom\-po\-nen\-ten-, Klassen-, Sequenz-, Datenflussdiagramm, Programmablaufplan, Struktogramm, \ac{EPK}).
-	\item Wie wird die erstellte Anwendung in den Arbeitsfluss des Unternehmens integriert?
-\end{itemize}
+	Der Einstiegspunkt für den Nutzer ist die mobile App. Diese kommuniziert ausschließlich mit dem Laravel-Backend,
+	welches als zentrale Steuerungseinheit fungiert. Über das Backend können unter anderem Sensordaten sowie deren Historie abgerufen werden.
 
-\paragraph{Beispiel}
-Ein Klassendiagramm, welches die Klassen der Anwendung und deren Beziehungen untereinander darstellt kann im \Anhang{app:Klassendiagramm} eingesehen werden.
+	Darüber hinaus dient das Laravel-Backend als Schnittstelle für interne und externe Benutzer,
+	beispielsweise für Mitarbeitende, die über eine definierte API, mithilfe von Postman, Aktionen wie das Anlegen neuer Gateways durchführen können.
 
-\Abbildung{Modulimport} zeigt den grundsätzlichen Programmablauf beim Einlesen eines Moduls als \ac{EPK}.
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{modulimport.pdf}{0.9}
-\caption{Prozess des Einlesens eines Moduls}
-\label{fig:Modulimport}
-\end{figure}
+	Müssen im Zuge solcher Aktionen auch Änderungen im ChirpStack vorgenommen werden, \zB das parallele Anlegen eines Geräts oder Gateways,
+	wird die entsprechende Anfrage intern an den gRPC-Proxy weitergeleitet. Dieser übernimmt die Konvertierung der REST-Anfragen
+	in gRPC-Aufrufe und leitet diese an ChirpStack weiter, welches die entsprechenden Daten ebenfalls in seinem System speichert.
+	
+	Eine visuelle Darstellung dieser Systemkomponenten und ihrer Beziehungen ist im \Anhang{app:KomponentenSystem} zu finden.
 
 
 \subsection{Maßnahmen zur Qualitätssicherung}
 \label{sec:Qualitaetssicherung}
-\begin{itemize}
-	\item Welche Maßnahmen werden ergriffen, um die Qualität des Projektergebnisses (siehe Kapitel~\ref{sec:Qualitaetsanforderungen}: \nameref{sec:Qualitaetsanforderungen}) zu sichern (\zB automatische Tests, Anwendertests)?
-	\item \Ggfs Definition von Testfällen und deren Durchführung (durch Programme/Benutzer).
-\end{itemize}
+	Im Rahmen dieses Projekts wurde bewusst auf automatisierte Tests oder den Einsatz spezieller Qualitätssicherungs-Tools verzichtet.
+	Stattdessen erfolgte die Qualitätssicherung in Form manueller Tests sowie durch regelmäßige Code-Reviews während der Entwicklungsphase.
+
+	Die manuelle Überprüfung ermöglichte eine praxisnahe Validierung der Funktionalitäten,
+	insbesondere im Hinblick auf die Benutzeroberfläche und die Interaktion mit dem Backend.
+	Zusätzlich trugen die Code-Reviews dazu bei, mögliche Fehler frühzeitig zu erkennen,
+	die Codequalität zu verbessern und die Einhaltung von Projektstandards sicherzustellen.
 
 
-\subsection{Pflichtenheft/Datenverarbeitungskonzept}
+\subsection{Deployment}
+\label{sec:Deployment}
+	Für den Betrieb von ChirpStack sowie dem gRPC-Proxy wurde ein eigener Server benötigt,
+	da beide Dienste unabhängig von der Hauptanwendung laufen und bestimmte Netzwerk- sowie Systemressourcen erfordern.
+	Aus diesem Grund wurde ein Cloud-Server bei Ionos angemietet.
+	Da sowohl ChirpStack als auch der gRPC-Proxy vergleichsweise geringe Systemanforderungen aufweisen,
+	genügte eine Konfiguration mit einer einzelnen CPU und 1 GB RAM, um eine stabile Ausführung sicherzustellen.
+
+	Als Betriebssystem kam Debian 12 zum Einsatz.
+	Diese Version stellt die derzeit aktuelle stabile Veröffentlichung der Debian-Distribution dar und wurde aufgrund ihrer Zuverlässigkeit,
+	Sicherheit sowie der guten Dokumentation gewählt.\footnote{Vgl. \citet{Debian}}
+
+	Nach der Grundkonfiguration des Servers erfolgte die Installation von ChirpStack gemäß der offiziellen Dokumentation.
+	Dabei wurden auch alle erforderlichen Abhängigkeiten eingerichtet, darunter der Message-Broker Mosquitto,
+	die In-Memory-Datenbank Redis sowie das relationale Datenbanksystem PostgreSQL.
+	
+	Für den Betrieb von dem gRPC-Proxy wurde zudem Node.js installiert.
+	Zur Prozessverwaltung und zur Sicherstellung der dauerhaften Verfügbarkeit des Proxys wird \Ausgabe{pm2} verwendet.
+	Dieses Tool ermöglicht es, den Dienst automatisch beim Systemstart auszuführen und bei unerwarteten Fehlern
+	oder Abstürzen selbstständig neu zu starten.
+
+	Um sowohl den Zugriff auf ChirpStack als auch auf den gRPC-Proxy über das Internet zu ermöglichen,
+	wurde ein Reverse Proxy mit Nginx eingerichtet. In Kombination mit Certbot konnten zudem automatisierte SSL-Zertifikate
+	von Let's Encrypt eingerichtet werden, wodurch eine verschlüsselte und sichere Kommunikation über HTTPS gewährleistet ist.
+
+	Diese Infrastruktur gewährleistet einen zuverlässigen und wartungsarmen Betrieb der zentralen Backend-Komponenten des Projektes.
+
+
+\subsection{Pflichtenheft}
 \label{sec:Pflichtenheft}
-\begin{itemize}
-	\item Auszüge aus dem Pflichtenheft/Datenverarbeitungskonzept, wenn es im Rahmen des Projekts erstellt wurde.
-\end{itemize}
-
-\paragraph{Beispiel}
-Ein Beispiel für das auf dem Lastenheft (siehe Kapitel~\ref{sec:Lastenheft}: \nameref{sec:Lastenheft}) aufbauende Pflichtenheft ist im \Anhang{app:Pflichtenheft} zu finden.
+	Basierend auf den erarbeiteten Entwürfen wurde zum Abschluss der Entwurfsphase ein Pflichtenheft erstellt.
+	Dieses baut auf dem zuvor definierten Lastenheft auf und konkretisiert die Umsetzung der in Abschnitt~\Verweis{sec:Lastenheft} festgelegten Anforderungen.
+	Es dient sowohl während der Entwicklungsphase als Orientierungshilfe als auch am Projektende zur Überprüfung, ob sämtliche Anforderungen
+	erfüllt wurden. Ein Auszug des Pflichtenhefts ist im \Anhang{app:Pflichtenheft} dargestellt.

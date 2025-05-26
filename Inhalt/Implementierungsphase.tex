@@ -4,34 +4,74 @@
 
 \subsection{Implementierung der Datenstrukturen}
 \label{sec:ImplementierungDatenstrukturen}
+	Die Umsetzung des Datenbankschemas orientierte sich weitgehend an dem in Abschnitt~\ref{sec:Datenmodell} beschriebenen \ac{ERM}.
+	Lediglich kleinere Anpassungen waren notwendig, um spezifische technische Anforderungen und Rahmenbedingungen zu erfüllen.
 
-\begin{itemize}
-	\item Beschreibung der angelegten Datenbank (\zB Generierung von \acs{SQL} aus Modellierungswerkzeug oder händisches Anlegen), \acs{XML}-Schemas \usw.
-\end{itemize}
+	Zur besseren Strukturierung und Übersichtlichkeit innerhalb der Datenbank wurden die Tabellen eines Moduls mit einem gemeinsamen Präfix versehen.
+	Im vorliegenden Fall wurde das Präfix \Ausgabe{LORA} verwendet, wodurch eine eindeutige Zuordnung der Tabellen zum jeweiligen Modul gewährleistet ist.
+
+	Darüber hinaus wurden zusätzliche Spalten vorgesehen, beispielsweise zur Speicherung von Informationen über Dezimalstellen oder
+	andere potenzielle Erweiterungen, um künftige Anforderungen flexibel abbilden zu können.
+
+	Die Erstellung der Datenbankstruktur erfolgte mithilfe sogenannter Migrationen,
+	die eine nachvollziehbare und versionierte Entwicklung der Datenbank ermöglichen.
+	Die Migration zur Tabelle \Ausgabe{LORA\_sensors} ist im \Anhang{app:Migration} aufgeführt.
+
+	Parallel zur Definition der Tabellen wurden auch die zugehörigen Model-Klassen implementiert,
+	welche die Verbindung zwischen Anwendung und Datenbank darstellen.
+	Diese Modelle bilden die logische Repräsentation der Datenstrukturen innerhalb der Applikation ab.
+	Ein Auszug des Models \Ausgabe{LORASensor} findet sich im \Anhang{app:Model}.
 
 
 \subsection{Implementierung der Benutzeroberfläche}
 \label{sec:ImplementierungBenutzeroberflaeche}
+	Die Benutzeroberfläche wurde auf Grundlage der im Abschnitt \ref{sec:Benutzeroberflaeche} dargestellten Mockups entwickelt.
+	Für die Umsetzung kam das in Abschnitt \ref{sec:Architekturdesign} vorgestellte Framework NativeScript-Vue zum Einsatz,
+	das eine Kombination aus der Vue.js Syntax und nativer App-Entwicklung ermöglicht.
 
-\begin{itemize}
-	\item Beschreibung der Implementierung der Benutzeroberfläche, falls dies separat zur Implementierung der Geschäftslogik erfolgt (\zB bei \acs{HTML}-Oberflächen und Stylesheets).
-	\item \Ggfs Beschreibung des Corporate Designs und dessen Umsetzung in der Anwendung.
-	\item Screenshots der Anwendung
-\end{itemize}
+	Vue verwendet eine HTML-ähnliche Syntax, die durch eigene Direktiven wie \Ausgabe{v-for} ergänzt wird,
+	um Daten dynamisch darzustellen. Beispielsweise kann mit dieser Direktive einfach über eine Liste von Sensoren iteriert werden:
 
-\paragraph{Beispiel}
-Screenshots der Anwendung in der Entwicklungsphase mit Dummy-Daten befinden sich im \Anhang{Screenshots}.
+	\mint{vue}|<li v-for="sensor in sensors"></li>|
+
+	In nativen Anwendungen wie denen, die mit NativeScript erstellt werden, spielt die Performance jedoch eine entscheidende Rolle.
+	Da keine klassischen HTML-Elemente verfügbar sind und eine hohe Effizienz beim Rendering notwendig ist,
+	kann obiges Beispiel nicht direkt verwendet werden. Stattdessen wird die Komponente \Ausgabe{CollectionView} eingesetzt.
+	Diese bietet den Vorteil, dass nur die tatsächlich sichtbaren Listenelemente gerendert werden,
+	während Elemente außerhalb des sichtbaren Bereichs verworfen werden.
+	Dadurch wird der Speicherverbrauch reduziert und die Anwendung bleibt auch bei großen Datenmengen performant:
+
+	\mint{vue}|<CollectionView :items="dataItems"></CollectionView>|
+
+	Für das Design und Styling der Benutzeroberfläche wird CSS verwendet.
+	Einen Eindruck des finalen Designs geben die im \Anhang{app:Screenshots} enthaltenen Screenshots,
+	die den Zustand der App nach Abschluss der Implementierungsphase dokumentieren.
+
+	Ein Auszug aus dem Quelltext für die Liste aller Sensoren befindet sich im \Anhang{app:View}.
 
 
 \subsection{Implementierung der Geschäftslogik}
 \label{sec:ImplementierungGeschaeftslogik}
+	Die Geschäftslogik bildet das zentrale Bindeglied zwischen den fachlichen Anforderungen und der technischen Umsetzung.
+	Sie steuert die Verarbeitung der Anwendungsdaten und definiert die Abläufe zur Umsetzung der funktionalen Anforderungen.
+	Im Rahmen dieses Projekts wurden im ersten Schritt sämtliche in
+	Abschnitt~\ref{sec:Geschaeftslogik} beschriebenen Komponenten des Laravel-Servers realisiert.
 
-\begin{itemize}
-	\item Beschreibung des Vorgehens bei der Umsetzung/Programmierung der entworfenen Anwendung.
-	\item \Ggfs interessante Funktionen/Algorithmen im Detail vorstellen, verwendete Entwurfsmuster zeigen.
-	\item Quelltextbeispiele zeigen.
-	\item Hinweis: Wie in Kapitel~\ref{sec:Einleitung}: \nameref{sec:Einleitung} zitiert, wird nicht ein lauffähiges Programm bewertet, sondern die Projektdurchführung. Dennoch würde ich immer Quelltextausschnitte zeigen, da sonst Zweifel an der tatsächlichen Leistung des Prüflings aufkommen können.
-\end{itemize}
+	Für jede relevante Model-Klasse wurde ein zugehöriger Controller erstellt,
+	welcher die standardmäßigen Methoden zur Datenverarbeitung gemäß dem \ac{CRUD}-Paradigma bereitstellt.
+	In Laravel entspricht dies beispielsweise der Methode \texttt{store} für das Erstellen neuer Einträge (Create).
 
-\paragraph{Beispiel}
-Die Klasse \texttt{Com\-par\-ed\-Na\-tu\-ral\-Mo\-dule\-In\-for\-ma\-tion} findet sich im \Anhang{app:CNMI}.  
+	Sobald eine Interaktion mit ChirpStack erforderlich war, wurde die jeweilige Funktionalität gezielt im gRPC-Proxy umgesetzt.
+	Ziel war es, den Proxy schlank zu halten und ausschließlich um notwendige Funktionen zu erweitern.
+	Ein entsprechender Auszug der Proxy-Implementierung ist im \Anhang{app:Proxy} dokumentiert.
+
+	Zur Kommunikation zwischen Laravel und dem gRPC-Proxy wurde eine dedizierte Service-Klasse entwickelt.
+	Diese übernimmt sowohl die Authentifizierung als auch den Versand der HTTP-Anfragen an den Proxy.
+	Dadurch wird eine klare Trennung der Verantwortlichkeiten erreicht und die Anbindung an externe Dienste zentralisiert.
+
+	Ein Controller-Auszug ist im \Anhang{app:Controller} dargestellt.
+	Dieser veranschaulicht unter anderem das Anzeigen und Anlegen eines Geräts.
+	Im Rahmen des Anlegens wird dabei auch eine Anfrage an den gRPC-Proxy gesendet,
+	um das entsprechende Gerät innerhalb von ChirpStack zu registrieren.
+
+

@@ -3,42 +3,77 @@
 \label{sec:Einleitung}
 
 
+In der folgenden Projektdokumentation wird der Ablauf des Abschlussprojektes, das durch den Autor
+im Rahmen seiner Abschlussprüfung zum Fachinformatiker mit der Fachrichtung Anwendungsentwicklung durchgeführt wurde, erläutert.
+
+
 \subsection{Projektumfeld} 
 \label{sec:Projektumfeld}
-\begin{itemize}
-	\item Kurze Vorstellung des Ausbildungsbetriebs (Geschäftsfeld, Mitarbeiterzahl \usw)
-	\item Wer ist Auftraggeber/Kunde des Projekts?
-\end{itemize}
+	Der Ausbildungsbetrieb \OFF ist ein zukunftsorientiertes Unternehmen mit Spezialisierung auf Marketing und digitale Transformation.
+	Im Mittelpunkt der Geschäftstätigkeit steht die strategische und technische Beratung von Unternehmen,
+	die ihre Geschäftsprozesse modernisieren, optimieren und digitalisieren möchten.
+	\OFF versteht sich als Schnittstelle zwischen Technologie und Unternehmensentwicklung und begleitet seine Kunden
+	auf dem Weg in die digitale Zukunft – von der ersten Analyse bis zur erfolgreichen Implementierung maßgeschneiderter Lösungen.
+	
+	\OFF plant, \SCO zu vertreiben – ein System zur Einrichtung, Verwaltung und Nutzung von \ac{LoRaWAN} Netzwerken.
+	Mit \SCO können Sensordaten effizient erfasst, verarbeitet, analysiert und visualisiert werden.
+	Das System bietet eine ganzheitliche Lösung zur Digitalisierung und Überwachung von Prozessen in verschiedenen Anwendungsbereichen.
 
 
 \subsection{Projektziel} 
 \label{sec:Projektziel}
-\begin{itemize}
-	\item Worum geht es eigentlich?
-	\item Was soll erreicht werden?
-\end{itemize}
+	Das Projektziel bestand darin ein ganzheitliches System zur Erfassung, Verwaltung und Visualisierung von Sensordaten zu erstellen.
+	Das System ermöglicht die zentrale Integration und Administration von Gateways und Sensoren über ein webbasiertes Management-Portal.
+	Erfasste Daten werden über ein Backend verarbeitet, gespeichert und für die Visualisierung in einer intuitiven Web- und Mobile-App aufbereitet.
+	
+	Folgende Aspekte lagen im Fokus:
+	\begin{itemize}
+		\item zentrale Verwaltung von Gateways und Sensoren
+		\item zuverlässige Datenübertragung und -verarbeitung mithilfe des \ac{LoRaWAN} Protokolls
+		\item Backend zur Datenaufnahme, Analyse und Bereitstellung von Schnittstellen
+		\item benutzerfreundliche Visualisierung der Sensordaten durch eine App für Android und iOS
+	\end{itemize}
+	
+	Das Projekt zielte darauf ab die bestehenden Systeme (\dahe Backend, Web und App) um eine modulare,
+	erweiterbare und benutzerorientierte \ac{IoT}-Plattform zu erweitern,
+	die in unterschiedlichen Anwendungsfeldern wie Smart City, Umweltmonitoring oder Industrie 4.0 flexibel eingesetzt werden kann.
 
 
 \subsection{Projektbegründung} 
 \label{sec:Projektbegruendung}
-\begin{itemize}
-	\item Warum ist das Projekt sinnvoll (\zB Kosten- oder Zeitersparnis, weniger Fehler)?
-	\item Was ist die Motivation hinter dem Projekt?
-\end{itemize}
+	Im Alltag vieler Unternehmen gehört das manuelle Ablesen von Strom-, Wasser- oder Verbrauchszählern noch immer zum Standard.
+	Auch im Umfeld der offizium next GmbH gibt es Kunden, bei denen beispielsweise Stromzähler unterschiedlicher Stromkreisläufe
+	regelmäßig von Mitarbeitenden vor Ort händisch abgelesen und dokumentiert werden müssen.
+	Diese Vorgänge sind nicht nur zeitintensiv, sondern auch fehleranfällig,
+	da sie auf manuelle Übertragung und Interpretation von Messwerten angewiesen sind.
+
+	Mit dem System \SCO sollte genau hier angesetzt werden:
+	Statt wiederkehrende Routinetätigkeiten durch Personal durchführen zu lassen,
+	können die benötigten Verbrauchsdaten automatisiert erfasst, übertragen, gespeichert und aufbereitet werden.
+	Das reduziert nicht nur den Arbeitsaufwand für Mitarbeitende erheblich,
+	sondern sorgt gleichzeitig für eine höhere Datenqualität und eine bessere Nachvollziehbarkeit.
+	Falsche Ablesewerte, vergessene Protokolle oder uneinheitliche Formate werden somit weitestgehend vermieden.
 
 
 \subsection{Projektschnittstellen} 
 \label{sec:Projektschnittstellen}
-\begin{itemize}
-	\item Mit welchen anderen Systemen interagiert die Anwendung (technische Schnittstellen)?
-	\item Wer genehmigt das Projekt \bzw stellt Mittel zur Verfügung? 
-	\item Wer sind die Benutzer der Anwendung?
-	\item Wem muss das Ergebnis präsentiert werden?
-\end{itemize}
+	Für die Übertragung, Verarbeitung und Darstellung der Sensordaten innerhalb des Systems waren mehrere technische Schnittstellen erforderlich,
+	die unterschiedliche Protokolle und Dienste miteinander verbinden.
+	
+	Die von den Sensoren erfassten Daten werden über LoRaWAN-Gateways an ChirpStack, eine Open-Source-Netzwerkserver-Plattform für LoRaWAN, übermittelt. 
+	Um diese Daten weiterzuverarbeiten, wurde ein Webhook eingerichtet, der die dekodierten Daten automatisch an das Backend-System weiterleitet. 
+	Dort erfolgt die Validierung, Speicherung und Aufbereitung der empfangenen Informationen.
+	
+	Da das entwickelte Backend nur \ac{HTTP} unterstützt, ChirpStack jedoch ausschließlich über eine gRPC-Schnittstelle verwaltet werden kann,
+	war die Implementierung einer Vermittlungsschicht erforderlich.
+	Diese Komponente übernimmt die Aufgabe, eingehende Anfragen des Backends in entsprechende gRPC-Aufrufe umzuwandeln.
+	So wird eine zentrale und einfache Verwaltung der LoRaWAN-Komponenten direkt über das Backend ermöglicht.
+	
+	Zusätzlich wurde eine \ac{REST}-\ac{API} entwickelt, über die sowohl die Webanwendung als auch die mobile App
+	auf die verarbeiteten Sensordaten zugreifen können. Diese Schnittstelle stellt die Daten in strukturierter Form bereit
+	und bildet die Grundlage für die nutzerfreundliche Visualisierung innerhalb der Benutzeroberflächen.
 
 
 \subsection{Projektabgrenzung} 
 \label{sec:Projektabgrenzung}
-\begin{itemize}
-	\item Was ist explizit nicht Teil des Projekts (\insb bei Teilprojekten)?
-\end{itemize}
+	Da der Projektumfang begrenzt ist, ist die Erstellung der Weboberfläche zur einfachen Verwaltung kein Bestandteil des Projekts.

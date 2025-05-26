@@ -1,12 +1,16 @@
 % !TEX root = ../Projektdokumentation.tex
 \section{Dokumentation}
 \label{sec:Dokumentation}
+	Die Dokumentation der Anwendung gliedert sich in die Projektdokumentation sowie ein Benutzerhandbuch.
+	Die Projektdokumentation beschreibt die im Verlauf des Projekts durchlaufenen Phasen und getroffenen Entscheidungen.
 
-\begin{itemize}
-	\item Wie wurde die Anwendung für die Benutzer/Administratoren/Entwickler dokumentiert (\zB Benutzerhandbuch, \acs{API}-Dokumentation)?
-	\item Hinweis: Je nach Zielgruppe gelten bestimmte Anforderungen für die Dokumentation (\zB keine IT-Fachbegriffe in einer Anwenderdokumentation verwenden, aber auf jeden Fall in einer Dokumentation für den IT-Bereich).
-\end{itemize}
+	Das Benutzerhandbuch richtet sich an Endanwender und soll die Bedienung der Anwendung erleichtern.
+	Es enthält eine Übersicht über die wichtigsten Funktionen sowie eine schrittweise Anleitung zur Navigation innerhalb der Anwendung.
+	Unterstützt durch Screenshots wird die Nutzung anschaulich erklärt.
+	Ein Auszug ist im \Anhang{app:BenutzerDoku} zu finden.
 
-\paragraph{Beispiel}
-Ein Ausschnitt aus der erstellten Benutzerdokumentation befindet sich im \Anhang{app:BenutzerDoku}.
-Die Entwicklerdokumentation wurde mittels PHPDoc\footnote{Vgl. \cite{phpDoc}} automatisch generiert. Ein beispielhafter Auszug aus der Dokumentation einer Klasse findet sich im \Anhang{app:Doc}. 
+	Auf eine separate Entwicklerdokumentation wurde bewusst verzichtet.
+	Stattdessen wurde der Quellcode umfangreich kommentiert, sodass sich Entwickler bei einer späteren Weiterentwicklung
+	oder Anpassung direkt im Code orientieren können. In der Entwurfsphase wurde ein Komponentendiagramm erstellt,
+	das die Struktur und die Abhängigkeiten der wichtigsten Systemkomponenten visualisiert.
+	Dieses dient als Überblick für neue Entwickler und ist im \Anhang{app:KomponentenSystem} enthalten.

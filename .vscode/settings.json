@@ -1,5 +1,16 @@
 {
     "files.eol": "\n",
     "editor.useTabStops": true,
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
+    "latex-workshop.latex.recipe.default": "latexmk (lualatex)",
+    "ltex.language": "de-DE",
+    "ltex.latex.commands": {
+        "\\OFF": "dummy",
+        "\\SCO": "dummy",
+        "\\zB": "dummy",
+        "\\Anhang{}": "dummy",
+        "\\tabelle{}{}{}": "ignore",
+        "\\Verweis{}": "dummy",
+        "\\dahe": "dummy",
+    }
 }

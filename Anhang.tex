@@ -5,51 +5,83 @@
 
 \tabelleAnhang{ZeitplanungKomplett}
 
-\input{Anhang/AnhangLastenheft.tex}
+\input{Anhang/AnhangRessourcen.tex}
 \clearpage
+
 
 \subsection{Use Case-Diagramm}
 \label{app:UseCase}
-Use Case-Diagramme und weitere \acs{UML}-Diagramme kann man auch direkt mit \LaTeX{} zeichnen, siehe \zB \url{http://metauml.sourceforge.net/old/usecase-diagram.html}.
 \begin{figure}[htb]
 \centering
-\includegraphicsKeepAspectRatio{UseCase.pdf}{0.7}
+\includegraphicsKeepAspectRatio{UseCase.pdf}{1}
 \caption{Use Case-Diagramm}
 \end{figure}
+\clearpage
+
+\input{Anhang/AnhangLastenheft.tex}
+\clearpage
+
+\input{Anhang/AnhangMockups.tex}
+\clearpage
+
+\subsection{ER-Modell}
+\label{app:ERM}
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{ERM.pdf}{1}
+\caption{ER-Modell}
+\end{figure}
+
+\subsection{Komponentendiagramm}
+\label{app:KomponentenSystem}
+\begin{figure}[htb]
+\centering
+\includegraphicsKeepAspectRatio{Komponenten.pdf}{1}
+\caption{Komponentendiagramm}
+\end{figure}
+\clearpage
 
 \input{Anhang/AnhangPflichtenheft.tex}
 
-\subsection{Datenbankmodell}
-\label{app:Datenbankmodell}
-ER-Modelle kann man auch direkt mit \LaTeX{} zeichnen, siehe \zB \url{http://www.texample.net/tikz/examples/entity-relationship-diagram/}.
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{database.pdf}{1}
-\caption{Datenbankmodell}
-\end{figure}
+\clearpage
+\subsection{Migration: LORA\_sensors}
+\label{app:Migration}
+\begin{longlisting}
+  \inputminted{php}{Listings/migration.php}
+  \caption{Migration: LORA\_sensors}
+\end{longlisting}
+
+\subsection{Model: LORASensors (Auszug)}
+\label{app:Model}
+\begin{longlisting}
+  \inputminted{php}{Listings/model.php}
+  \caption{Model: LORASensors (Auszug)}
+\end{longlisting}
 \clearpage
 
-\input{Anhang/AnhangEntwuerfe.tex}
-\clearpage
 \input{Anhang/AnhangScreenshots.tex}
-\input{Anhang/AnhangDoc.tex}
-\clearpage
-\input{Anhang/AnhangTest.tex}
-
-\subsection{Klasse: ComparedNaturalModuleInformation}
-\label{app:CNMI}
-Kommentare und simple Getter/Setter werden nicht angezeigt.
-\lstinputlisting[language=php, caption={Klasse: ComparedNaturalModuleInformation}]{Listings/cnmi.php}
 \clearpage
 
-\subsection{Klassendiagramm}
-\label{app:Klassendiagramm}
-Klassendiagramme und weitere \acs{UML}-Diagramme kann man auch direkt mit \LaTeX{} zeichnen, siehe \zB \url{http://metauml.sourceforge.net/old/class-diagram.html}.
-\begin{figure}[htb]
-\centering
-\includegraphicsKeepAspectRatio{Klassendiagramm.pdf}{1}
-\caption{Klassendiagramm}
-\end{figure}
+\subsection{Sensorliste (Auszug)}
+\label{app:View}
+\begin{longlisting}
+  \inputminted{vue}{Listings/view.vue}
+  \caption{Sensorliste (Auszug)}
+\end{longlisting}
+
+\subsection{gRPC-Proxy (Auszug)}
+\label{app:Proxy}
+\begin{longlisting}
+  \inputminted{ts}{Listings/proxy.ts}
+  \caption{gRPC-Proxy (Auszug)}
+\end{longlisting}
+
+\subsection{Klasse: LoraDevicesController (Auszug)}
+\label{app:Controller}
+\begin{longlisting}
+  \inputminted{php}{Listings/controller.php}
+  \caption{Klasse: LoraDevicesController (Auszug)}
+\end{longlisting}
 \clearpage
 
 \input{Anhang/AnhangBenutzerDoku.tex}

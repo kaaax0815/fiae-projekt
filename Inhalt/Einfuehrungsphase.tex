@@ -1,9 +1,15 @@
 % !TEX root = ../Projektdokumentation.tex
 \section{Einführungsphase}
 \label{sec:Einfuehrungsphase}
+	Für die finale Einführung der Anwendung wurde der entsprechende Git-Branch mit dem Hauptzweig zusammengeführt.
+	Anschließend erfolgte ein manueller \Ausgabe{git pull} auf dem Produktionsserver,
+	wodurch die neu implementierte Funktionalität im produktiven Backend verfügbar wurde.
 
-\begin{itemize}
-	\item Welche Schritte waren zum Deployment der Anwendung nötig und wie wurden sie durchgeführt (automatisiert/manuell)?
-	\item Wurden \ggfs Altdaten migriert und wenn ja, wie?
-	\item Wurden Benutzerschulungen durchgeführt und wenn ja, Wie wurden sie vorbereitet?
-\end{itemize}
+	Auch der gRPC-Proxy wurde über Git auf den aktuellen Stand gebracht.
+	Im Anschluss daran wurde die Konfiguration für den automatischen Start des Dienstes mithilfe von \Ausgabe{pm2} eingerichtet,
+	um einen stabilen und dauerhaften Betrieb sicherzustellen.
+
+	Auf eine separate Benutzerschulung wurde bewusst verzichtet,
+	da die Anwendung gezielt so gestaltet wurde, dass sie möglichst intuitiv bedienbar ist.
+	Durch die klare Benutzerführung und eine reduzierte Komplexität der Oberfläche
+	sollte eine Einarbeitung ohne zusätzliche Anleitung möglich sein.
