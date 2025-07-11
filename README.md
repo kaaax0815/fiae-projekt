@@ -6,7 +6,9 @@
 
 This is the documentation for the final project for the apprenticeship / vocational training as an IT specialist in application development.
 
-The project proposal is included as [Projektantrag.pdf](Projektantrag.pdf) and the final project report is included as [Projektdokumentation.pdf](Projektdokumentation.pdf).
+The proposal is included as [Projektantrag.pdf](Projektantrag.pdf), the report is included as [Projektdokumentation.pdf](Projektdokumentation.pdf) and the presentation is included as [Projektpräsentation.pptx](Projektpräsentation.pptx).
+
+The report and presentation were graded with 98 (1,1).
 
 ## License
 
